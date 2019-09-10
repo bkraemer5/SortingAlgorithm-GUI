@@ -1,12 +1,14 @@
 package my_sorting_algorithm;
 
 import java.awt.Canvas;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 
 import javax.swing.*;
 
 public class SortingGame extends Canvas {
 	
-	static TitleScreen title;
+	private TitleScreen title;
 	Window window;
 	public static final float WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 	
@@ -22,7 +24,6 @@ public class SortingGame extends Canvas {
 	
 	public SortingGame() {
 		title = new TitleScreen();
-		
 		new Window(WIDTH, HEIGHT, "Sorting", this);
 	}
 	
@@ -77,7 +78,14 @@ public class SortingGame extends Canvas {
 	}
 	
 	private void render() {
+		BufferStrategy b = this.getBufferStrategy();
+		if (b == null) {
+			this.createBufferStrategy(3);
+			return;
+		}
 		
+		Graphics g = b.getDrawGraphics();
+		title.render(g);
 	}
 	
 	public static void main(String args[]) { 
